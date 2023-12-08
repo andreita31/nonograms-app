@@ -12,8 +12,6 @@ export default function NonoCharacteristic({name, characteristic, fontsName, fon
 const styles = StyleSheet.create({
     container: {
         width: "auto",
-        padding: 6,
         gap: 3,
-        paddingBottom: 8,
     }
 });

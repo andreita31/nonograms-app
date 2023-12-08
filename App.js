@@ -12,6 +12,7 @@ import { imported_fonts } from './Fonts';
 import Icon from '@expo/vector-icons/FontAwesome';
 import TestRoom from './src/views/TestRoom';
 import Profile from './src/views/Profile';
+import GamesSaved from './src/views/GamesSaved';
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -43,10 +44,19 @@ function HomeTabs() {
             <Tab.Screen 
                 options={{
                     tabBarIcon: ({ focused, color, size }) => {
+                        return <Icon name="save" size={size} color={color} />;
+                    },
+                }}
+                name="Juegos Guardados" 
+                component={GamesSaved}  
+            />
+            <Tab.Screen 
+                options={{
+                    tabBarIcon: ({ focused, color, size }) => {
                         return <Icon name="user" size={size} color={color} />;
                     },
                 }}
-                name="Profile" 
+                name="Perfil" 
                 component={Profile}  
             />
         </Tab.Navigator>

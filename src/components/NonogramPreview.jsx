@@ -1,4 +1,4 @@
-import { AlphaType, Canvas, ColorType, Image, Skia } from "@shopify/react-native-skia";
+import { AlphaType, Blur, Canvas, ColorType, Image, Skia } from "@shopify/react-native-skia";
 import { parseColor } from "../utils/color";
 
 function generateDataBuffer(width, height, colors, data, scale = 1){
@@ -20,8 +20,7 @@ function generateDataBuffer(width, height, colors, data, scale = 1){
     return arr;
 }
 
-export default function NonogramPreview(props){
-    const {nonogram, width: props_width, height: props_height} = props;
+export default function NonogramPreview({nonogram, width: props_width, height: props_height, blurry, blurLevel}){
     const width = props_width ?? 100, height = props_height ?? 100;
     const img_data = Skia.Data.fromBytes(generateDataBuffer(nonogram.width, nonogram.height, nonogram.colors, nonogram.data));
     const img = Skia.Image.MakeImage(
@@ -37,7 +36,9 @@ export default function NonogramPreview(props){
 
     return (
         <Canvas style={{ width, height }}>
-            <Image image={img} fit="contain" width={width} height={height} />
+            <Image image={img} fit="contain" width={width} height={height}>
+                {blurry && <Blur blur={blurLevel ?? 5}/>}
+            </Image>
         </Canvas>
     );
 }
