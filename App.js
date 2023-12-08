@@ -17,6 +17,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { imported_fonts } from './Fonts';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import TestRoom from './src/views/TestRoom';
+import Profile from './src/views/Profile';
+
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
