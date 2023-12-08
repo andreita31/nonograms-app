@@ -7,14 +7,24 @@ import Btn from "../components/Btn";
 import { Image } from 'react-native';
 import DatumDisplay from "../components/DatumDisplay";
 import PersonalInformation from "../components/PersonalInformation";
+import AppWrapper from "./AppWrapper";
 
 
-export default function Profile({name,level, font, fontLabel, fontValue, fontSubtitulo, fontLabelInformation, fontValueInformation}){
-
+export default function Profile(){
+    const name="Alberto Flores";
+    const level="level 8";
+    const font="Inter_400Regular";
+    const fontLabel="Inter_400Regular";
+    const fontValue="Inter_700Bold";
+    const fontSubtitulo="Inter_700Bold";
+    const fontLabelInformation="Inter_700Bold";
+    const fontValueInformation="Inter_400Regular";
     return (
-        <>
+        <AppWrapper centerContent={true}>
             <ScrollView style={styles.container}>
-                <View style={{width: "100%", height: "100%"}}>
+                <View style={{
+                    padding: 20
+                }}>
                     <View style={{width: "100%"}}>
                         
                         <View style={{width: "100%", paddingVertical: "2%" }}>
@@ -22,7 +32,7 @@ export default function Profile({name,level, font, fontLabel, fontValue, fontSub
                                 Mi perfil
                             </Text>
                         </View>
-                        <View style={{width: "100%", paddingVertical: "2%" }}>
+                        <View style={styles.dataContainer}>
                             <Text style={{color: "rgb(71, 129, 126)", fontFamily:font, fontSize: 15, textAlign: "center"}}>
                                 {name}
                             </Text>
@@ -37,10 +47,8 @@ export default function Profile({name,level, font, fontLabel, fontValue, fontSub
                         <Text style={{color: "rgb(240,85,147)", fontFamily:fontSubtitulo, fontSize: 22, textAlign: "center"}}>
                             Nonogramas
                         </Text>
-                        <View style={{width: "100%", paddingVertical: "5%" }}>
+                        <View style={{width: "100%", gap: 15, paddingVertical: "3%", display: "flex", flexDirection: "row", flexWrap: 'wrap', justifyContent: "center"}}>
                             <DatumDisplay fontLabel={fontLabel} fontValue={fontValue} label={"Partidas Guardadas"} value={"25"} />
-                        </View>
-                        <View style={{width: "100%", paddingVertical: "1%" }}>
                             <DatumDisplay fontLabel={fontLabel} fontValue={fontValue} label={"Partidas Completadas"} value={"10"} />
                         </View>
                     </View>
@@ -50,25 +58,12 @@ export default function Profile({name,level, font, fontLabel, fontValue, fontSub
                             Datos Personales
                         </Text>
                         
-                        <View style={{width: "100%",paddingVertical: "3%", display: "flex", flexDirection: "row", justifyContent: "center"}}>
-                            <View style={{width: "50%", paddingVertical: "3%" }}>
-                                <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Nombre"} value={"Alberto"} />  
-                            </View>
-                            <View style={{width: "50%", paddingVertical: "3%" }}>
-                                <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Apellido"} value={"Flores"} /> 
-                            </View>
-                        </View>
-                        
-                        <View style={{width: "100%", paddingVertical: "3%" }}>
+                        <View style={{width: "100%", columnGap: 35, rowGap: 15, paddingVertical: "3%", display: "flex", flexDirection: "row", flexWrap: 'wrap', justifyContent: "center"}}>
+                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Nombre"} value={"Alberto"} />  
+                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Apellido"} value={"Flores"} /> 
                             <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Fecha de nacimiento"} value={"25/11/1998"} />
-                        </View>
-                        <View style={{width: "100%", paddingVertical: "3%" }}>
                             <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Nombre de usuario"} value={"albert_f"} />
-                        </View>
-                        <View style={{width: "100%", paddingVertical: "3%" }}>
                             <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Cuenta creada"} value={"14/06/2022"} />  
-                        </View>
-                        <View style={{width: "100%", paddingVertical: "3%" }}>
                             <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Correo"} value={"a_flores@gmail.com"} /> 
                         </View>
                         
@@ -78,32 +73,28 @@ export default function Profile({name,level, font, fontLabel, fontValue, fontSub
                             Preferencias
                         </Text>
                         
-                        <View style={{width: "100%",paddingVertical: "3%", display: "flex", flexDirection: "row", justifyContent: "center"}}>
-                            <View style={{width: "50%", paddingVertical: "3%" }}>
-                                <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Idioma"} value={"Español"} />  
-                            </View>
-                            <View style={{width: "50%", paddingVertical: "3%" }}>
-                                <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Modo"} value={"Claro"} /> 
-                            </View>
+                        <View style={{width: "100%", gap: 15, paddingVertical: "3%", display: "flex", flexDirection: "row", flexWrap: 'wrap', justifyContent: "center"}}>
+                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Idioma"} value={"Español"} />  
+                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Modo"} value={"Claro"} /> 
                         </View>
                     </View>
                 </View>
                 
             </ScrollView>
-        </>
+        </AppWrapper>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        width:'80%',
-        maxHeight:'90%',
-        backgroundColor: '#fff',
-        borderRadius: 15,
-        padding: 20,
+        flexGrow: 0,
     },
     inputsContainer: {
         width:'100%',
         paddingVertical: 12,
+    },
+    dataContainer: {
+        display: "flex",
+        
     }
 });
