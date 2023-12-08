@@ -69,26 +69,26 @@ export default function GamesSaved(){
     ];
     return(
         <AppWrapper title={"Juegos guardados"}>
-        <FlatList
-        data={nonograms_array}
-        style={{
-            
-        }}
-        renderItem={({item}) => 
-        <View 
-        style={{marginVertical: 8, marginHorizontal: 8}}
-        key={item.id}
-        >
-        <NonogramSaved 
-        nonogram_data={item}
-        img_width={150}
-        fontName={titleFont}
-        fontChar={inputsFont}
-        />
-        </View>
-    }
-    keyExtractor={item => item.id}
-    />
-    </AppWrapper>
+            <FlatList
+                data={nonograms_array}
+                style={{
+                    
+                }}
+                renderItem={({item}) => 
+                <View 
+                    style={{marginVertical: 8, marginHorizontal: 8}}
+                    key={item.id}
+                >
+                <NonogramSaved 
+                    nonogram_data={item}
+                    img_width={150}
+                    fontName={titleFont}
+                    fontChar={inputsFont}
+                />
+                </View>
+                }
+                keyExtractor={item => item.id}
+            />
+        </AppWrapper>
     );
 }

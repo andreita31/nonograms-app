@@ -4,7 +4,10 @@ import NonoCharacteristic from "./NonoCharacteristic";
 import NonoSize from "./NonoSize";
 import { fonts } from "../../Fonts";
 
-export default function NonogramSaved({nonogram_data: {name, width: nono_width, height: nono_height, colors, data, category: {name: category_name}, difficulty: {name: difficulty_name}}, img_width, img_height, fontName, fontChar}){
+export default function NonogramSaved(
+    {nonogram_data: {name, width: nono_width, height: nono_height, colors, data, category: {name: category_name}, difficulty: {name: difficulty_name}},
+    img_width, img_height, fontName, fontChar, time = false, setTime=null}
+    ){
 
     return (
         <View style={styles.container}>
@@ -41,7 +44,7 @@ export default function NonogramSaved({nonogram_data: {name, width: nono_width, 
                     />
                     <NonoCharacteristic
                         name={"Tiempo"}
-                        characteristic={"00:25:37"}
+                        characteristic="00:34:43"
                         fontsName={fontName}
                         fontsCharacteristic={fontChar}
                     />

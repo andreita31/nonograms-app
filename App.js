@@ -41,7 +41,7 @@ function HomeTabs() {
                 }}
                 name="Test" 
                 component={TestRoom}  
-            />
+            />  
             <Tab.Screen 
                 options={{
                     tabBarIcon: ({ focused, color, size }) => {

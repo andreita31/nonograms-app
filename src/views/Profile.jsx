@@ -12,6 +12,7 @@ import { getUserData } from "../api/auth";
 import { AuthContext } from "../providers/AuthProvider";
 import Spinner from "react-native-loading-spinner-overlay";
 import { getDate } from "../utils/date";
+import Icon from '@expo/vector-icons/FontAwesome';
 
 
 export default function Profile(){
@@ -52,7 +53,9 @@ export default function Profile(){
                     padding: 20
                 }}>
                     <View style={{width: "100%"}}>
-                        
+                        <Btn
+                            icon={<Icon name="sign-out" size={20} color={"#fff"} width={40}/>}
+                        />
                         <View style={{width: "100%", paddingVertical: "2%" }}>
                             <Text style={{color: "rgb(71, 129, 126)", fontWeight: "bold", fontSize: 30, textAlign: "center"}}>
                                 Mi perfil
