@@ -3,13 +3,19 @@ import { ScrollView, Text, View } from "react-native";
 import { StyleSheet } from "react-native";
 import Btn from "../components/Btn";
 import LabelsInputs from "../components/LabelsInputs";
+import AppWrapper from "./AppWrapper";
+import LabelLink from "../components/LabelLink";
+import { fonts } from "../../Fonts";
 
-export default function Login({titleFont, inputsFont}){
-
+export default function Login({navigation}){
+    const titleFont = fonts.Montserrat_700Bold;
+    const inputsFont = fonts.Inter_400Regular;
     return (
-        <>
+        <AppWrapper centerContent={true} showGradient={true}>
             <ScrollView style={styles.container}>
-                <View style={{width: "100%", height: "100%"}}>
+                <View style={{
+                    padding: 20
+                }}>
                     <View style={{width: "100%", paddingBottom: 8}}>
                         <Text style={{width: "100%", color: "rgb(71, 129, 126)", fontSize: 30, textAlign: "center", fontFamily: titleFont}}>
                             Iniciar sesión
@@ -25,6 +31,7 @@ export default function Login({titleFont, inputsFont}){
                             setFont={inputsFont}
                         />
                         <LabelsInputs
+                            secureTextEntry={true}
                             setPlaceholder={"Ingresa tu contraseña"}
                             setTitle={"Contraseña"}
                             setFont={inputsFont}
@@ -33,30 +40,27 @@ export default function Login({titleFont, inputsFont}){
                     <View style={{width: "100%"}}>
                         <Btn
                             style={{ }} 
-                            text={"Registrar"}
+                            text={"Iniciar sesión"}
                             font={titleFont}
                         />
                         <Text style={{width: "100%", color: "rgb(71, 129, 126)", fontSize: 15, textAlign: "center", paddingTop: 12, fontFamily:inputsFont}}>
                             ¿No tienes cuenta?
                         </Text>
-                        <Text style={{width: "100%", color: "rgb(71, 129, 126)", fontSize: 15, textAlign: "center", fontFamily:inputsFont}}>
+                        <LabelLink onPress={() => navigation.replace('Register')} style={{ width: "100%", color: "rgb(71, 129, 126)" }} font={inputsFont}>
                             Crear cuenta
-                        </Text>
+                        </LabelLink>
                     </View>
                 </View>
             </ScrollView>
-        </>
+        </AppWrapper>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        width:'80%',
-        maxHeight:"90%",
+        maxWidth:'80%',
         backgroundColor: '#fff',
         borderRadius: 15,
-        paddingHorizontal: 20,
-        paddingVertical: 30,
         flexGrow: 0
     },
     inputsContainer: {
