@@ -1,13 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import { LinearGradient } from "expo-linear-gradient";
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 
 import { useFonts } from 'expo-font';
-import NonoCharacteristic from './src/components/NonoCharacteristic';
-import NonoSize from './src/components/NonoSize';
-import GameSaved from './src/views/GameSaved';
 import { NavigationContainer } from '@react-navigation/native';
 import Login from './src/views/Login'
 import Register from './src/views/Register'
