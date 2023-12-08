@@ -1,13 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { AppLoading } from "expo";
+import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
-import Register from './src/views/Register';
+import * as SplashScreen from 'expo-splash-screen';
+import { useCallback } from 'react';
+
 import { useFonts } from 'expo-font';
 import { Inter_400Regular, Inter_500Medium, Inter_700Bold, Inter_900Black } from '@expo-google-fonts/inter';
 import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_700Bold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
+import NonoCharacteristic from './src/components/NonoCharacteristic';
+import NonoSize from './src/components/NonoSize';
+import GameSaved from './src/views/GameSaved';
+
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
-    let [fontLoaded, error] = useFonts({
+    const [fontsLoaded] = useFonts({
         Inter_400Regular,
         Inter_500Medium,
         Inter_700Bold,
@@ -18,13 +25,44 @@ export default function App() {
         Montserrat_900Black
   })
 
-  if(fontLoaded){
+    const onLayoutRootView = useCallback(async () => {
+        if (fontsLoaded) {
+            await SplashScreen.hideAsync();
+        }
+    }, [fontsLoaded]);
+
+    if (!fontsLoaded) {
+        return null;
+    }
+
     return (
-        <View style={styles.container}>
+        <View style={styles.container} onLayout={onLayoutRootView}>
             <StatusBar style="auto" />
-            <Register
-                titleFont={"Inter_700Bold"}
-                inputsFont={"Montserrat_500Medium"}
+            <GameSaved/>
+            <NonoCharacteristic
+                name={"Nivel"}
+                characteristic={"Difícil"}
+                fontsName={"Montserrat_700Bold"}
+                fontsCharacteristic={"Inter_500Medium"}
+            />
+            <NonoCharacteristic
+                name={"Categoría"}
+                characteristic={"Paisajes"}
+                fontsName={"Montserrat_700Bold"}
+                fontsCharacteristic={"Inter_500Medium"}
+            />
+            <NonoCharacteristic
+                name={"Tiempo"}
+                characteristic={"00:25:37"}
+                fontsName={"Montserrat_700Bold"}
+                fontsCharacteristic={"Inter_500Medium"}
+            />
+            <NonoSize
+                name={"Tamaño"}
+                nonoWidth={"10"}
+                nonoHeight={"15"}
+                fontsName={"Montserrat_700Bold"}
+                fontsSize={"Inter_500Medium"}
             />
             <LinearGradient
                 style={styles.background}
@@ -32,14 +70,11 @@ export default function App() {
             />
         </View>
     );
-  }
-  return (<View></View>)
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },

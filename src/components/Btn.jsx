@@ -16,7 +16,8 @@ export default function Btn({ text, font }){
 }
 
 const styles = (font) => StyleSheet.create({
-    
+    btn: {
+    },
     btnText: {
         padding: 15,
         borderRadius: 15,
