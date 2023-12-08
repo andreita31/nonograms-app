@@ -1,5 +1,5 @@
-import { useContext, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { useCallback, useContext, useState } from "react";
+import { RefreshControl, ScrollView, Text, View } from "react-native";
 import { StyleSheet } from "react-native";
 import Label from "../components/Label";
 import Input from "../components/Input";
@@ -40,6 +40,18 @@ export default function Profile(){
             console.log(JSON.stringify(e));
         }).catch(console.error)
     }, [])
+
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        
+        getUserData(token).then(({data: e}) => {
+            setUser(e);
+            setRefreshing(false);
+        }).catch(console.error)
+    }, []);
+
     return (
         <AppWrapper centerContent={true}>
             <Spinner
@@ -48,7 +60,12 @@ export default function Profile(){
                 textStyle={styles.spinnerTextStyle}
                 overlayColor="rgba(0, 0, 0, .7)"
             />
-            <ScrollView style={styles.container}>
+
+            <ScrollView style={styles.container} 
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
+            >
                 <View style={{
                     padding: 20
                 }}>
