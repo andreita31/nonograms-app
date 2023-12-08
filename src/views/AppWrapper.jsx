@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#fff'
     },
     background: {
         width: '100%',
