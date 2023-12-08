@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { StyleSheet } from "react-native";
 import Label from "../components/Label";
@@ -8,6 +8,10 @@ import { Image } from 'react-native';
 import DatumDisplay from "../components/DatumDisplay";
 import PersonalInformation from "../components/PersonalInformation";
 import AppWrapper from "./AppWrapper";
+import { getUserData } from "../api/auth";
+import { AuthContext } from "../providers/AuthProvider";
+import Spinner from "react-native-loading-spinner-overlay";
+import { getDate } from "../utils/date";
 
 
 export default function Profile(){
@@ -19,8 +23,30 @@ export default function Profile(){
     const fontSubtitulo="Inter_700Bold";
     const fontLabelInformation="Inter_700Bold";
     const fontValueInformation="Inter_400Regular";
+    
+    const [spinner, setSpinner] = useState(false);
+    const { token } = useContext(AuthContext);
+
+    const showLoading = (promise) => {
+        setSpinner(true);
+        promise().then(() => setSpinner(false));
+    }
+
+    const [ user, setUser ] = useState();
+    useState(() => {
+        getUserData(token).then(({data: e}) => {
+            setUser(e);
+            console.log(JSON.stringify(e));
+        }).catch(console.error)
+    }, [])
     return (
         <AppWrapper centerContent={true}>
+            <Spinner
+                visible={spinner}
+                textContent={'Cargando...'}
+                textStyle={styles.spinnerTextStyle}
+                overlayColor="rgba(0, 0, 0, .7)"
+            />
             <ScrollView style={styles.container}>
                 <View style={{
                     padding: 20
@@ -34,10 +60,7 @@ export default function Profile(){
                         </View>
                         <View style={styles.dataContainer}>
                             <Text style={{color: "rgb(71, 129, 126)", fontFamily:font, fontSize: 15, textAlign: "center"}}>
-                                {name}
-                            </Text>
-                            <Text style={{color: "rgb(71, 129, 126)", fontWeight: "bold", fontSize: 15, textAlign: "center"}}>
-                                {level}
+                                {`${user?.first_name ?? ""} ${user?.last_name ?? ""}`}
                             </Text>
                             
                         </View>
@@ -59,12 +82,12 @@ export default function Profile(){
                         </Text>
                         
                         <View style={{width: "100%", columnGap: 35, rowGap: 15, paddingVertical: "3%", display: "flex", flexDirection: "row", flexWrap: 'wrap', justifyContent: "center"}}>
-                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Nombre"} value={"Alberto"} />  
-                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Apellido"} value={"Flores"} /> 
-                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Fecha de nacimiento"} value={"25/11/1998"} />
-                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Nombre de usuario"} value={"albert_f"} />
-                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Cuenta creada"} value={"14/06/2022"} />  
-                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Correo"} value={"a_flores@gmail.com"} /> 
+                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Nombre"} value={user?.first_name ?? ""} />  
+                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Apellido"} value={user?.last_name ?? ""} /> 
+                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Fecha de nacimiento"} value={getDate(user?.date_of_birth)} />
+                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Nombre de usuario"} value={user?.username} />
+                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Cuenta creada"} value={getDate(user?.created_at)} />  
+                            <PersonalInformation fontLabelInformation={fontLabelInformation} fontValueInformation={fontValueInformation} label={"Correo"} value={user?.email} /> 
                         </View>
                         
                     </View>

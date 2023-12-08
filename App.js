@@ -13,6 +13,7 @@ import Icon from '@expo/vector-icons/FontAwesome';
 import TestRoom from './src/views/TestRoom';
 import Profile from './src/views/Profile';
 import GamesSaved from './src/views/GamesSaved';
+import AuthProvider from './src/providers/AuthProvider';
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -77,15 +78,17 @@ export default function App() {
     }
 
     return (
-        <NavigationContainer onReady={onLayoutRootView}>
-            <Stack.Navigator initialRouteName="App" screenOptions={{
-                headerShown: false
-            }}>
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="Register" component={Register} />
-                <Stack.Screen name="App" component={HomeTabs} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <AuthProvider>
+            <NavigationContainer onReady={onLayoutRootView}>
+                <Stack.Navigator initialRouteName="Login" screenOptions={{
+                    headerShown: false
+                }}>
+                    <Stack.Screen name="Login" component={Login} />
+                    <Stack.Screen name="Register" component={Register} />
+                    <Stack.Screen name="App" component={HomeTabs} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </AuthProvider>
     );
 }
 

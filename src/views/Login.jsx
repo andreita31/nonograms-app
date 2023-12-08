@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { StyleSheet } from "react-native";
 import Btn from "../components/Btn";
@@ -6,12 +6,42 @@ import LabelsInputs from "../components/LabelsInputs";
 import AppWrapper from "./AppWrapper";
 import LabelLink from "../components/LabelLink";
 import { fonts } from "../../Fonts";
+import Spinner from "react-native-loading-spinner-overlay";
+import * as SecureStore from 'expo-secure-store';
+import { AuthContext } from "../providers/AuthProvider";
+import { get, post } from "../api/base";
+import * as Device from 'expo-device';
 
 export default function Login({navigation}){
     const titleFont = fonts.Montserrat_700Bold;
     const inputsFont = fonts.Inter_400Regular;
+    const [spinner, setSpinner] = useState(false);
+    const { token, loadTokenAsync, setTokenAsync } = useContext(AuthContext);
+    
+    useEffect(() => {
+        setSpinner(true);
+        loadTokenAsync().then(() => setSpinner(false))
+    }, [])
+
+    useEffect(() => {
+        if(token){
+            navigation.replace('App')
+        }
+    },[token])
+
+    const showLoading = (promise) => {
+        setSpinner(true);
+        promise().then(() => setSpinner(false));
+    }
+
     return (
         <AppWrapper centerContent={true} showGradient={true}>
+            <Spinner
+                visible={spinner}
+                textContent={'Cargando...'}
+                textStyle={styles.spinnerTextStyle}
+                overlayColor="rgba(0, 0, 0, .7)"
+            />
             <ScrollView style={styles.container}>
                 <View style={{
                     padding: 20
@@ -39,6 +69,22 @@ export default function Login({navigation}){
                     </View>
                     <View style={{width: "100%"}}>
                         <Btn
+                            onPress={() => {
+                                showLoading(async () => {
+                                    const device_name = Device.deviceName;
+                                    try{
+                                        const {data} = await post('/auth/issue-token', {
+                                            username: "prueba",
+                                            password: "password",
+                                            device_name
+                                        });
+                                        setTokenAsync(data);
+                                        navigation.replace('App')
+                                    }catch(e){
+                                        console.error(e.message)
+                                    }
+                                })
+                            }}
                             style={{ }} 
                             text={"Iniciar sesión"}
                             font={titleFont}
@@ -66,5 +112,9 @@ const styles = StyleSheet.create({
     inputsContainer: {
         width:'100%',
         paddingVertical: 25,
+    },
+    spinnerTextStyle: {
+        color: "#fff",
+        fontFamily: fonts.Inter_900Black
     }
 });
