@@ -15,7 +15,7 @@ import Home from './src/views/Home'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { imported_fonts } from './Fonts';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Icon from '@expo/vector-icons/FontAwesome';
 import TestRoom from './src/views/TestRoom';
 import Profile from './src/views/Profile';
 
@@ -31,7 +31,7 @@ function HomeTabs() {
             <Tab.Screen 
                 options={{
                     tabBarIcon: ({ focused, color, size }) => {
-                        return <Ionicons name="md-checkmark-circle" size={32} color="green" />;
+                        return <Icon name="home" size={size} color={color} />;
                     },
                 }}
                 name="Home" component={Home}  
@@ -40,11 +40,20 @@ function HomeTabs() {
             <Tab.Screen 
                 options={{
                     tabBarIcon: ({ focused, color, size }) => {
-                        return <Ionicons name="md-checkmark-circle" size={32} color="green" />;
+                        return <Icon name="bug" size={size} color={color} />;
                     },
                 }}
                 name="Test" 
                 component={TestRoom}  
+            />
+            <Tab.Screen 
+                options={{
+                    tabBarIcon: ({ focused, color, size }) => {
+                        return <Icon name="user" size={size} color={color} />;
+                    },
+                }}
+                name="Profile" 
+                component={Profile}  
             />
         </Tab.Navigator>
     );
