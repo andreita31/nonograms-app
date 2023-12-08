@@ -10,7 +10,7 @@ import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_700Bold, Montse
 import NonoCharacteristic from './src/components/NonoCharacteristic';
 import NonoSize from './src/components/NonoSize';
 import GameSaved from './src/views/GameSaved';
-import Profile from './src/views/Profile';
+import SelectNonogramas from './src/views/SelectNonogramas';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,7 +24,7 @@ export default function App() {
         Montserrat_500Medium,
         Montserrat_700Bold,
         Montserrat_900Black
-  })
+})
 
     const onLayoutRootView = useCallback(async () => {
         if (fontsLoaded) {
@@ -39,15 +39,9 @@ export default function App() {
     return (
         <View style={styles.container} onLayout={onLayoutRootView}>
             <StatusBar style="auto" />
-            <Profile
-                name={"Alberto Flores"}
-                level={"level 8"}
-                font={"Inter_400Regular"}
-                fontLabel={"Inter_400Regular"}
-                fontValue={"Inter_700Bold"}
-                fontSubtitulo={"Inter_700Bold"}
-                fontLabelInformation={"Inter_700Bold"}
-                fontValueInformation={"Inter_400Regular"}
+            <SelectNonogramas
+              
+              
             />
             <LinearGradient
                 style={styles.background}
