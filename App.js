@@ -10,6 +10,7 @@ import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_700Bold, Montse
 import NonoCharacteristic from './src/components/NonoCharacteristic';
 import NonoSize from './src/components/NonoSize';
 import GameSaved from './src/views/GameSaved';
+import Profile from './src/views/Profile';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -38,31 +39,15 @@ export default function App() {
     return (
         <View style={styles.container} onLayout={onLayoutRootView}>
             <StatusBar style="auto" />
-            <GameSaved/>
-            <NonoCharacteristic
-                name={"Nivel"}
-                characteristic={"Difícil"}
-                fontsName={"Montserrat_700Bold"}
-                fontsCharacteristic={"Inter_500Medium"}
-            />
-            <NonoCharacteristic
-                name={"Categoría"}
-                characteristic={"Paisajes"}
-                fontsName={"Montserrat_700Bold"}
-                fontsCharacteristic={"Inter_500Medium"}
-            />
-            <NonoCharacteristic
-                name={"Tiempo"}
-                characteristic={"00:25:37"}
-                fontsName={"Montserrat_700Bold"}
-                fontsCharacteristic={"Inter_500Medium"}
-            />
-            <NonoSize
-                name={"Tamaño"}
-                nonoWidth={"10"}
-                nonoHeight={"15"}
-                fontsName={"Montserrat_700Bold"}
-                fontsSize={"Inter_500Medium"}
+            <Profile
+                name={"Alberto Flores"}
+                level={"level 8"}
+                font={"Inter_400Regular"}
+                fontLabel={"Inter_400Regular"}
+                fontValue={"Inter_700Bold"}
+                fontSubtitulo={"Inter_700Bold"}
+                fontLabelInformation={"Inter_700Bold"}
+                fontValueInformation={"Inter_400Regular"}
             />
             <LinearGradient
                 style={styles.background}
